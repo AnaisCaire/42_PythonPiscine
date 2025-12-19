@@ -12,15 +12,17 @@
 # **************************************************************************** #
 
 def ft_garden_intro():
+    """display the info of my plant"""
     plant: str = "Rose"
     height: int = 32
     age: int = 2
-    print(f"the plant type is: {plant}")
-    print(f"the plant's height is: {height} cm")
-    print(f"the plant's age is: {age} days")
+    print(
+        f"=== Welcome to My Garden ===\n"
+        f"Plant: {plant}\n"
+        f"Height: {height} cm\n"
+        f"Age: {age} days\n"
+        "\n=== End of Program ===")
 
 
 if __name__ == "__main__":
-     print("=== Here is my Graden ! ===\n")
-     ft_garden_intro()
-     print("\n=== end of program ===")
+    ft_garden_intro()
