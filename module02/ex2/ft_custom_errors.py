@@ -6,7 +6,7 @@
 #    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 17:20:26 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/19 17:47:13 by anaiscaire       ###   ########.fr        #
+#    Updated: 2025/12/21 09:04:08 by anaiscaire       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,32 +33,32 @@ class WaterError(GardenError):
 
 def test_custom_errors():
     """Demonstrates raising and catching custom garden errors."""
-    print("Custom Garden Errors Demo")
+    print("=== Custom Garden Errors Demo ===")
 
-    # Testing specific errors
+    print("\nTesting PlantError...")
     try:
-        raise PlantError("The tomato plant is wilting!")
+        raise PlantError("the tomato plant is wilting!")
     except PlantError as e:
         print(f"Caught PlantError: {e}")
-
+    
+    print("\nTesting WaterError...")
     try:
         raise WaterError("Not enough water in the tank!")
     except WaterError as e:
         print(f"Caught WaterError: {e}")
-
-    # Testing the hierarchy (Catching all)
-    print("Testing catching all garden errors...")
-    errors_to_test = [
-        PlantError("The tomato plant is wilting!"),
-        WaterError("Not enough water in the tank!")
-    ]
     
-    for err in errors_to_test:
-        try:
+    print("\nTesting catching all garden errors...")
+    errors = [PlantError("the tomato plant is wilting!"), 
+           WaterError("Not enough water in the tank!")]
+
+    for err in errors:
+        try: 
             raise err
-        except GardenError as e:
-            # This demonstrates that GardenError is a parent to both
+        except GardenError as e: # GardenError inherits from the other errors. 
             print(f"Caught a garden error: {e}")
+
+    print("\nAll custom error types work correctly!")
+        
 
 if __name__ == "__main__":
     test_custom_errors()
