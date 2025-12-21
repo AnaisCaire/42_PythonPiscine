@@ -36,3 +36,13 @@ when python dosen't automatically detect it's an error but in your program it sh
 errors?
 This helps provide a clearer code hierarchy making the error messages more specific and having a
 stronger foundation if a problem arraises.
+
+# Ex3
+
+okay so the try block is not to code what might fail ! its the __Working Zone__
+There should be the entire normal operation with : the protection.
+
+concept of the "Happy path" == the execution if nothing fails is in the try block.
+
+the role of __Finally__:
+The finally block is unique because it doesn't care if the "Happy Path" finished or if you jumped to the "Error Path". It is the Cleanup Crew that ensures the system is always closed, protecting your hardware from staying "open" indefinitely
