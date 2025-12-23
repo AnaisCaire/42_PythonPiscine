@@ -12,14 +12,16 @@
 # **************************************************************************** #
 
 def ft_garden_intro():
-    """display the info of my plant"""
+    """
+    Display the info of my plant
+    """
     plant: str = "Rose"
-    height: int = 32
-    age: int = 2
+    height: int = 25
+    age: int = 30
     print(
         f"=== Welcome to My Garden ===\n"
         f"Plant: {plant}\n"
-        f"Height: {height} cm\n"
+        f"Height: {height}cm\n"
         f"Age: {age} days\n"
         "\n=== End of Program ===")
 
