@@ -1,6 +1,18 @@
 # 42_PythonPiscine
 los 11 modulos de python
 
+## Module 01:
+
+# Ex 4
+the magic tags:
+1. the Getter: @property
+   Make a method read-only
+   uses the underscore: to make the variables private
+   ex: self._height
+3. the Setter: @<name>.setter
+   Makes a Security Guard to run before changing a variable
+   
+
 ## Module 02:
 
 # Ex2
