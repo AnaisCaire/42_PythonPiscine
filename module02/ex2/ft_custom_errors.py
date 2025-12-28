@@ -6,7 +6,7 @@
 #    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 17:20:26 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/21 09:04:08 by anaiscaire       ###   ########.fr        #
+#    Updated: 2025/12/21 13:05:59 by anaiscaire       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ class WaterError(GardenError):
 
 
 def test_custom_errors():
-    """Demonstrates raising and catching custom garden errors."""
+    """
+    Demonstrates raising and catching custom garden errors.
+    """
     print("=== Custom Garden Errors Demo ===")
 
     print("\nTesting PlantError...")

@@ -6,12 +6,14 @@
 #    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 14:40:43 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/19 15:54:43 by anaiscaire       ###   ########.fr        #
+#    Updated: 2025/12/21 13:05:40 by anaiscaire       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 def check_temperature(temp_str: str):
-    """Makes sure the temperature is valid for plants"""
+    """
+    Makes sure the temperature is valid for plants
+    """
     try:
         temp = int(temp_str)
     except ValueError:
@@ -26,7 +28,9 @@ def check_temperature(temp_str: str):
         print(f"Temperature {temp}°C is perfect for plants!")
 
 def test_temperature_input():
-    """Small tester of 4 cases"""
+    """
+    Small tester of 4 cases
+    """
     temp = ["25", "abc", "100", "-50"]
     for t in temp:
         print("\nTesting temperature:", t)

@@ -6,7 +6,7 @@
 #    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/21 10:22:55 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/21 12:02:09 by anaiscaire       ###   ########.fr        #
+#    Updated: 2025/12/21 13:12:21 by anaiscaire       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,11 @@ class SunlightError(GardenError):
     pass
 
 class GardenManager:
+    """
+    the Garden Manager system with error handling
+    """
     def __init__(self):
         self.garden = []
-
-    print("=== Garden Management System")
 
     def add_plant(self, plant_name, water_level, sunlight):
         """
@@ -70,6 +71,7 @@ class GardenManager:
                     print(f"Error: {e}")
         finally:
             print("Closing watering system (cleanup)")
+        return self
     
     def check_plant_health(self, plant_name):
         """
@@ -111,8 +113,9 @@ class GardenManager:
         print(f"{plant_name}: healthy (water: {water_level}, sun: {sunlight})")
         return self
 
-if __name__ == "__main__":
 
+def tester():
+    print("=== Garden Management System ==")
     print(f"\nAdding plants to garden...")
     demo = GardenManager()
     demo = demo.add_plant("tomato", 5, 8)
@@ -122,7 +125,19 @@ if __name__ == "__main__":
     demo = demo.water_plants()
     
     print("\nChecking plant health...")
-    demo = demo.check_plant_health("tomato")
-    demo = demo.check_plant_health("lettuce")
+    demo.check_plant_health("tomato")
+    demo.check_plant_health("lettuce")
+
+    print("\nTesting error recovery...")
+    try:
+        raise WaterError("Not enought water in the tank")
+    except GardenError as e:
+        print(f"Caught GardenError: {e}")
+    print("System recovered and continuing...")
+
+    print("\nGarden management system test complete!")
+
+if __name__ == "__main__":
+    tester()
 
     

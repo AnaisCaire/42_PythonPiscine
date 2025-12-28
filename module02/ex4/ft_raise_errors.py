@@ -6,11 +6,14 @@
 #    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/21 09:57:55 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/21 10:20:58 by anaiscaire       ###   ########.fr        #
+#    Updated: 2025/12/21 13:03:51 by anaiscaire       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 def check_plant_health(plant_name, water_level, sunlight_hours):
+    """
+    Garden checker and error messages 
+    """
     try:
         if not plant_name:
             raise ValueError("Plant name cannot be empty!")
@@ -36,6 +39,9 @@ def check_plant_health(plant_name, water_level, sunlight_hours):
     print(f"Plant '{plant_name}' is healthy!")
 
 def test_plant_checks():
+    """
+    Tester for function
+    """
     print("=== Garden Plant Health Checker ===")
     print("\nTesting good values...")
     check_plant_health("tomato", 5, 6)
