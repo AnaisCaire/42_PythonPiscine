@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    stream_processor.py                                :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
+#    By: acaire-d <acaire-d@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/07 15:21:03 by anaiscaire        #+#    #+#              #
-#    Updated: 2026/01/07 17:28:27 by anaiscaire       ###   ########.fr        #
+#    Updated: 2026/01/19 09:48:34 by acaire-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from abc import ABC, abstractmethod
 from typing import Any
+
 
 class DataProcessor(ABC):
     """
@@ -29,6 +30,7 @@ class DataProcessor(ABC):
     def format_output(self, result: Any) -> str:
         """convert result as a string"""
         pass
+
 
 class NumericProcessor(DataProcessor):
     """
