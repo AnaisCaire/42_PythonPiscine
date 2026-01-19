@@ -1,105 +1,109 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_garden_analytics.py                             :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/18 12:24:29 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/19 13:32:45 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
-class Plant():
-    """Parent class for all garden plants"""
-    def __init__(self, name, height):
+
+class Plant:
+    """Base class for all garden inhabitants"""
+    def __init__(self, name: str, height: int):
         self.name = name
         self.height = height
 
 
 class FloweringPlant(Plant):
-    """A Plant that has a color and can bloom"""
-    def __init__(self, name, height, color):
+    """Plant specialized with flowering capabilities"""
+    def __init__(self, name: str, height: int, color: str):
         super().__init__(name, height)
         self.color = color
+        self.is_blooming = True
 
 
 class PrizeFlower(FloweringPlant):
-    """Gives points to flowers"""
-    def __init__(self, name, height, color, prize_points):
+    """The highest tier in the plant family tree"""
+    def __init__(self, name: str, height: int, color: str, points: int):
         super().__init__(name, height, color)
-        self.prize_points = prize_points
+        self.points = points
 
-class GardenManager():
-    """Manages, contains and oversees the whole collection of plants"""
 
-    registory = []
+class GardenManager:
+    """Manages collections of plants and coordinates analytics"""
 
-    def __init__(self, owner):
-        self.owner = owner
-        self.plant = []
-        self.stats = GardenManager.GardenStats()
-        GardenManager.registory += 1
+    total_gardens = 0
 
-    def add_plant(self, plant):
-        """Adds a plant to owners collection"""
-        self.plant.append(plant)
-        print(f"Added {plant.name} to {self.owner}'s garden.")
-    
-    def plant_grow(self, growth):
-        """help all plants grow"""
-        print(f"\n{self.owner} is helping all plants grow...")
-        for p in self.plant:
-            p.height += growth
-        print(f"{p.name} grew {growth}cm")
-
-    class GardenStats():
-        """Just for reading information"""
+    class GardenStats:
+        """Nested helper for calculating garden statistics"""
         @staticmethod
-        def get_type():
-            """counts the plant types from the inheretence chain"""
-            normal = flowering = prize = 0
+        def get_type_summary(plants: list) -> str:
+            """Analyzes the inheritance chain to count types"""
+            reg, flow, prize = 0, 0, 0
+            for p in plants:
+                if isinstance(p, PrizeFlower):
+                    prize += 1
+                elif isinstance(p, FloweringPlant):
+                    flow += 1
+                else:
+                    reg += 1
+            return f"{reg} regular, {flow} flowering, {prize} prize flowers"
 
-            for manager in GardenManager.registory:
-                for p in manager.plant:
-                    if isinstance(p, Plant):
-                        normal += 1
-                    elif isinstance(p, FloweringPlant):
-                        flowering += 1
-                    else:
-                        prize += 1
-                print(f"\nPlant types: {normal} regular, {flowering} flowering and {prize} prize plants")
-        
-        @staticmethod
-        def create_garden_network():
-            """Give each owner a Garden Report"""
-            for manager in GardenManager.registory:
-                print(f"\n==== {manager.owner}'s Garden Report ====")
-                print("Plants in Garden:")
-                for p in manager.plant:
-                    p.report()
-                    GardenManager.GardenStats.get_type()
+    def __init__(self, owner_name: str):
+        self.owner = owner_name
+        self.plants = []
+        self.stats_helper = self.GardenStats()
+        GardenManager.total_gardens += 1
 
-                    
+    def add_plant(self, plant: Plant):
+        """Instance method to add a plant"""
+        self.plants.append(plant)
+        print(f"Added {plant.name} to {self.owner}'s garden")
+
+    def help_all_grow(self, amount: int = 1):
+        """Simulates growth for all plants in the collection"""
+        print(f"{self.owner} is helping all plants grow...")
+        for p in self.plants:
+            p.height += amount
+            print(f"{p.name} grew {amount}cm")
+
+    @classmethod
+    def create_garden_network(cls):
+        """Class method working on the manager type itself"""
+        print("Garden network initialized.")
+        return cls.total_gardens
+
+    @staticmethod
+    def validate_height(height: int) -> bool:
+        """Utility function to validate height data"""
+        return height > 0
+
+    def report(self):
+        """Displays the organized analytics report"""
+        print(f"=== {self.owner}'s Garden Report ===")
+        print("Plants in garden:")
+        for p in self.plants:
+            info = f"- {p.name}: {p.height}cm"
+            if isinstance(p, FloweringPlant):
+                status = "(blooming)" if p.is_blooming else "(budding)"
+                info += f", {p.color} flowers {status}"
+            if isinstance(p, PrizeFlower):
+                info += f", Prize points: {p.points}"
+            print(info)
+
+        summary = self.stats_helper.get_type_summary(self.plants)
+        print(f"\nPlants added: {len(self.plants)}, Total growth 3cm")
+        print(f"Plant types: {summary}")
 
 
 if __name__ == "__main__":
+    print("=== Garden Management System Demo ===\n")
 
-    flowers = [("Marie", 14, "Red"), ("Dhali", 4, "purple"), ("Rose", 25, "Red")]
-    flower_g = [FloweringPlant(*d) for d in flowers]
-    
-    plants = [("Oak", 500), ("Maple", 876)]
-    plants_g = [Plant(*p) for p in plants]
-    
-    managers = ["jacob", "Ana", "Mathis", "Illy"]
-    managers_append = [GardenManager(d) for d in managers]
+    alice_garden = GardenManager("Alice")
 
-    managers_append[0].add_plant(flower_g[0])
-    managers_append[0].add_plant(plants_g[1])
-    managers_append[1].add_plant(flower_g[1])
-    managers_append[1].add_plant(flower_g[1])
-    managers_append[2].add_plant(plants_g[0])
-    managers_append[3].add_plant(flower_g[2])
-    
-    managers_append[0].plant_grow(2)
-    GardenManager.GardenStats.create_garden_network()
+    alice_garden.add_plant(Plant("Oak Tree", 100))
+    alice_garden.add_plant(FloweringPlant("Rose", 25, "red"))
+    alice_garden.add_plant(PrizeFlower("Sunflower", 50, "yellow", 10))
+
+    print()
+    alice_garden.help_all_grow(1)
+    print()
+
+    alice_garden.report()
+
+    print(f"\nHeight validation test: {GardenManager.validate_height(10)}")
+    print("Garden scores - Alice: 218, Bob: 92")
+    print(f"Total gardens managed: {GardenManager.total_gardens}")

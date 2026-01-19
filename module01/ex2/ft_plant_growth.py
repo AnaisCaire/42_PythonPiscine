@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_plant_growth.py                                 :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/17 14:28:34 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/21 16:47:39 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 class Plant:
     def __init__(self, name: str, age: int, height: int):
@@ -54,5 +43,6 @@ if __name__ == "__main__":
         ana.get_info()
         print("\n") """
 print(f"Growth this week: +{david.height_cm - davidinit}")
-# print(f"the total height gained of maya's is: {maya.height_cm - mayainit:.2f}")
+# print(f"the total height gained of maya's is:
+# {maya.height_cm - mayainit:.2f}")
 # print(f"the total height gained of david's is: {ana.height_cm - anainit}")

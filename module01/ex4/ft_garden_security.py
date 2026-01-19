@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_garden_security.py                              :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/17 17:58:27 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/21 17:57:42 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 class SecurePlant:
     def __init__(self, name, age, height):
@@ -47,7 +36,9 @@ class SecurePlant:
         print(f"Age updated: {self._age} days [OK]")
 
     def get_info(self):
-        print(f"\nCurrent plant: {self._name} ({self._height}cm, {self._age} days)")
+        print(
+            f"\nCurrent plant: {self._name} ({self._height}cm,"
+            f" {self._age} days)")
 
 
 if __name__ == "__main__": 
