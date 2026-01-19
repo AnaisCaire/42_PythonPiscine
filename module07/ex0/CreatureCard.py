@@ -1,47 +1,42 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    CreatureCard.py                                    :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: acaire-d <acaire-d@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/01/19 09:51:20 by acaire-d          #+#    #+#              #
-#    Updated: 2026/01/19 10:40:12 by acaire-d         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 
 from .Card import Card
-
 
 class CreatureCard(Card):
     """Gives play and attack based on the Parent class Card"""
     def __init__(self, name: str, cost: int, rarity: str, attack: int, health: int):
         super().__init__(name, cost, rarity)
+        if not (isinstance(attack, int) and attack > 0):
+            raise ValueError("The attack is not valid")
+        if not (isinstance(health, int) and health > 0):
+            raise ValueError("The health is not valid")
         self.attack = attack
         self.health = health
 
+    def get_card_info(self):
+        info = super().get_card_info()
+        info["type"] = "creature"
+        info["attack"] =  self.attack
+        info["health"] = self.health
+        return info
+
+
     def play(self, game_state: dict) -> dict:
         """prints the play results"""
-        if self.is_playable() is True:
-            print(f"Playing {self.name} with {self.mana} available")
-            game_state = {
+       # print(f"Playing {self.name} with {self.mana} available")
+        game_state = {
                 "card_played": self.name,
                 "mana_used": 5,
                 "effect": "Creature suummond to battlefield"
                 }
-            return game_state
-        else:
-            return "Not playable"
+        return game_state
 
     def attack_target(self, target) -> dict:
         """Gives attack info and validation of health and attack points"""
-        if self.health > 0 and self.attack > 0:
-            print(f"{self.name} attacks {self.target}:")
-            message = {
+           # print(f"{self.name} attacks {self.target}:")
+        message = {
                 "attacker": self.name,
                 "target" : target,
-                "damage_dealt": 7,
+                "damage_dealt": self.attack,
                 "combat_resolved": True
             }
-            return message
+        return message
