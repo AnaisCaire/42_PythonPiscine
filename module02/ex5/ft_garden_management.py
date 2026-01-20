@@ -1,21 +1,11 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_garden_management.py                            :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/21 10:22:55 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/21 13:12:21 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 class GardenError(Exception):
     """A basic error for garden problems."""
-    def __init__(self, message= "Caught a garden error"):
+    def __init__(self, message="Caught a garden error"):
         self.message = message
         super().__init__(message)
     pass
+
 
 class PlantError(GardenError):
     """For problems with plants (inherits from GardenError)."""
@@ -23,15 +13,18 @@ class PlantError(GardenError):
         super().__init__(message)
     pass
 
+
 class WaterError(GardenError):
     """For problems with watering (inherits from GardenError)."""
     def __init__(self, message="A watering-related error occurred"):
         super().__init__(message)
     pass
 
+
 class SunlightError(GardenError):
     """For problems with sunlight"""
     pass
+
 
 class GardenManager:
     """
@@ -50,13 +43,13 @@ class GardenManager:
         except PlantError as e:
             print(f"Error adding plant: {e}")
         else:
-            individual_plant = {"name": plant_name, 
-                                "water": water_level, 
+            individual_plant = {"name": plant_name,
+                                "water": water_level,
                                 "sun": sunlight}
             self.garden.append(individual_plant)
             print(f"Added {plant_name} successfully")
         return self
-    
+
     def water_plants(self):
         """
         Waters every plant in the garden
@@ -72,7 +65,7 @@ class GardenManager:
         finally:
             print("Closing watering system (cleanup)")
         return self
-    
+
     def check_plant_health(self, plant_name):
         """
         Finds the plant in the garden and checks its stats.
@@ -90,23 +83,27 @@ class GardenManager:
         except PlantError as e:
             print(f"Error: {e}")
             return
-        
+
         water_level = target_plant["water"]
         sunlight = target_plant["sun"]
-        
+
         try:
             if water_level > 10:
-                raise WaterError(f"Water level {water_level} is too high (max 10)")
+                raise WaterError(
+                    f"Water level {water_level} is too high (max 10)")
             elif water_level < 1:
-                raise WaterError(f"Water level {water_level} is too low (max 1)")
+                raise WaterError(
+                    f"Water level {water_level} is too low (max 1)")
         except WaterError as e:
             print(f"Error checking {plant_name}: {e}")
             return
         try:
             if sunlight > 12:
-                raise SunlightError(f"Sunlight hours {sunlight} is too high (max 12)")
+                raise SunlightError(
+                    f"Sunlight hours {sunlight} is too high (max 12)")
             if sunlight < 2:
-                raise SunlightError(f"Sunlight hours {sunlight} is too low (min 2)")
+                raise SunlightError(
+                    f"Sunlight hours {sunlight} is too low (min 2)")
         except SunlightError as e:
             print(f"Error checking {plant_name}: {e}")
             return
@@ -116,14 +113,14 @@ class GardenManager:
 
 def tester():
     print("=== Garden Management System ==")
-    print(f"\nAdding plants to garden...")
+    print("\nAdding plants to garden...")
     demo = GardenManager()
     demo = demo.add_plant("tomato", 5, 8)
     demo = demo.add_plant("lettuce", 15, 6)
     demo = demo.add_plant("", 8, 3)
     print("\nWatering plants...")
     demo = demo.water_plants()
-    
+
     print("\nChecking plant health...")
     demo.check_plant_health("tomato")
     demo.check_plant_health("lettuce")
@@ -137,7 +134,6 @@ def tester():
 
     print("\nGarden management system test complete!")
 
+
 if __name__ == "__main__":
     tester()
-
-    

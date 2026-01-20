@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_different_errors.py                             :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/19 15:10:10 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/19 17:19:25 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 def garden_operations(error_type: str):
     """
@@ -34,7 +23,7 @@ def test_error_types():
         garden_operations("value")
     except ValueError:
         print("Caught ValueError: invalid literal for int()")
-    
+
     print("\nTesting ZeroDivisionError...")
     try:
         garden_operations("zero")
@@ -45,14 +34,14 @@ def test_error_types():
     try:
         garden_operations("file")
     except FileNotFoundError:
-        print("Caught FileNotFoundError: No such file 'missing.txt'")  
+        print("Caught FileNotFoundError: No such file 'missing.txt'")
 
     print("\nTesting KeyError...")
     try:
         garden_operations("key")
     except KeyError as e:
         print(f"Caught KeyError: {e}")
-    
+
     print("\nTesting multiple errors together...")
     try:
         garden_operations("zero")

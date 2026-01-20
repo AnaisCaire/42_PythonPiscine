@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_first_exception.py                              :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/19 14:40:43 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/21 13:05:40 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 def check_temperature(temp_str: str):
     """
@@ -27,6 +16,7 @@ def check_temperature(temp_str: str):
     else:
         print(f"Temperature {temp}°C is perfect for plants!")
 
+
 def test_temperature_input():
     """
     Small tester of 4 cases
@@ -35,6 +25,7 @@ def test_temperature_input():
     for t in temp:
         print("\nTesting temperature:", t)
         check_temperature(t)
+
 
 if __name__ == "__main__":
     print("=== Garden Temperature Checker ===")
