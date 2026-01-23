@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_inventory_system.py                             :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/23 09:41:18 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/23 13:17:00 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 
 def get_inventory_stats(inventory):
@@ -30,33 +19,40 @@ def DictionarySystem():
     """
     alice_inv = {
         "sword": {"type": "weapon", "rarity": "rare", "qty": 1, "price": 500},
-        "potion": {"type": "consumable", "rarity": "common", "qty": 5, "price": 50},
-        "shield": {"type": "armor", "rarity": "uncommon", "qty": 1, "price": 200}
+        "potion": {
+            "type": "consumable", "rarity": "common", "qty": 5, "price": 50},
+        "shield": {
+            "type": "armor", "rarity": "uncommon", "qty": 1, "price": 200}
     }
-    bob_inv = { "magic_ring": {"type": "ring", "rarity": "rare", "qty": 1, "price": 25}}
+    bob_inv = {
+        "magic_ring": {"type": "ring", "rarity": "rare", "qty": 1, "price": 25}
+        }
+
     print("=== Player Inventory System ===")
+
     print("\n=== Alice's Inventory ===")
     total = 0
     inv_val = 0
     item_count = 0
     for item, details in alice_inv.items():
         total = details["qty"] * details["price"]
-        print(item, f"({details["type"]}, {details["rarity"]}):",
-              f"{details["qty"]}x @ {details["price"]} gold each",
-              f"= {total} gold")
+        print(item, f'({details["type"]}, {details["rarity"]}):',
+              f'{details["qty"]}x @ {details["price"]} gold each',
+              f'= {total} gold')
 
     inv_val, item_count = get_inventory_stats(alice_inv)
-    print(f"\nIventory value: {inv_val} gold")
+
+    print(f"\nInventory value: {inv_val} gold")
     print(f"Item count: {item_count} items")
 
-    category_count = {}
+    cat_count = {}
     for details in alice_inv.values():
         category = details["type"]
-        category_count[category] = category_count.get(category, 0) + details["qty"]
+        cat_count[category] = cat_count.get(category, 0) + details["qty"]
 
     print("Categories: ", end="")
     first = False
-    for cat, qty in category_count.items():
+    for cat, qty in cat_count.items():
         if first is True:
             print(", ", end="")
         first = True
@@ -65,6 +61,7 @@ def DictionarySystem():
     target_qty = 2
     item_name = "potion"
     print()
+
     print(f"\n=== Transaction: Alice gives Bob {target_qty} {item_name}")
     if item_name in alice_inv and alice_inv[item_name]["qty"] >= target_qty:
         alice_inv[item_name]["qty"] -= target_qty
@@ -82,13 +79,14 @@ def DictionarySystem():
                 }
             )
         print("Transaction successful!")
+
     print("\n=== Updated Inventories ===")
-    print(f"Alice {item_name}: {alice_inv[item_name]["qty"]}")
-    print(f"Bob {item_name}: {bob_inv[item_name]["qty"]}")
+
+    print(f'Alice {item_name}: {alice_inv[item_name]["qty"]}')
+    print(f'Bob {item_name}: {bob_inv[item_name]["qty"]}')
 
     print("\n=== Inventory Analytics ===")
 
-    # Get values for both
     a_val, a_count = get_inventory_stats(alice_inv)
     b_val, b_count = get_inventory_stats(bob_inv)
 
@@ -109,10 +107,10 @@ def DictionarySystem():
     rare_lst = []
     for item, details in alice_inv.items():
         if details["rarity"] == "rare":
-            rare_lst.append(item)
+            rare_lst += [item]
     for item, details in bob_inv.items():
         if details["rarity"] == "rare" and item not in rare_lst:
-            rare_lst.append(item)
+            rare_lst += [item]
 
     print("Rarest items: ", end="")
     first = True
@@ -123,6 +121,7 @@ def DictionarySystem():
         else:
             print(f", {i}", end="")
     print()
+
 
 if __name__ == "__main__":
     DictionarySystem()

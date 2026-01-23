@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_data_stream.py                                  :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/23 13:18:12 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/24 10:37:07 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 def fibonacci_generator(limit):
     a, b = 0, 1
@@ -36,10 +25,10 @@ def game_event_generator(count):
     """
     A 3 players, 3 actions and level generator
     """
-    player = ["Alice", "Bob", "Charlie"]
+    player = ["alice", "bob", "charlie"]
     action = ["leveled up", "killed monster", "found treasure"]
 
-    for n in range(1, count):
+    for n in range(1, count + 1):
         event = {
             "player": player[n % 3],
             "level": (n * 7) % 20,
@@ -59,8 +48,9 @@ if __name__ == "__main__":
     levelup_count = 0
     for event in game_event_generator(1000):
         if total < 4:
-            print(f"Event {total}: Player {event['player']} "
-                    f"(level {event['level']}) {event['action']}")
+            print(
+                f'Event {total}: Player {event["player"]} '
+                f'(level {event["level"]}) {event["action"]}')
         elif total == 4:
             print("...")
         if event["level"] >= 10:
@@ -82,7 +72,7 @@ if __name__ == "__main__":
     print("Processing time: 0.045 seconds")
 
     print("\n=== Generator Demonstration ===")
-    print("Fibonnaci sequence (first 10): ", end="")
+    print("Fibonaci sequence (first 10): ", end="")
     first = True
     for num in fibonacci_generator(10):
         if first is True:
@@ -99,4 +89,3 @@ if __name__ == "__main__":
         else:
             print(f", {num}", end="")
     print()
-    
