@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_command_quest.py                                :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/21 13:20:11 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/21 15:49:00 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 import sys
 
@@ -20,7 +9,7 @@ def command_quest():
     print("=== Command Quest ===")
     if len(sys.argv) == 1:
         print(
-            "No argument provided!"
+            "No arguments provided!"
             f"\nProgram name: {sys.argv[0]}"
             f"\nTotal arguments: {len(sys.argv)}")
     elif len(sys.argv) > 1:

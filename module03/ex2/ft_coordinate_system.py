@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_coordinate_system.py                            :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/22 17:27:17 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/22 18:35:25 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 import math
 
@@ -25,17 +14,17 @@ def calculate_distance(pos1, pos2):
 
 def parse_input(str_coor):
     """
-    Change the input from a string to a tuple
+    Change the input from a string to a tuple using list comprehensions
     """
     try:
-        parsed_coor = str_coor.split(',')
-        lst = []
-        for i in parsed_coor:
-            lst.append(int(i))
-        return tuple(lst)
+        res = tuple((int(i)) for i in str_coor.split(","))
+        if len(res) != 3:
+            print("You need to give 3 values not more, not less")
+            return
+        return res
     except ValueError as e:
         print(f"Error parsing coordinates: {e}")
-        print(f"Error details - Type: ValueError, Args: {e}")
+        print(f"Error details - Type: ValueError, Args: {e.args}")
         return None
 
 
@@ -64,9 +53,10 @@ def main():
     print(f"\nParsing invalid coordinates: {inval_coor}")
     parse_input(inval_coor)
 
+    x, y, z = pars_res
     print("\nUnpacking demonstration:")
-    print(f"Player at x={pars_res[0]}, y={pars_res[1]}, z={pars_res[2]}")
-    print(f"Coordinates: X={pars_res[0]}, Y={pars_res[1]}, Z={pars_res[2]}")
+    print(f"Player at x={x}, y={y}, z={z}")
+    print(f"Coordinates: X={x}, Y={y}, Z={z}")
 
 
 if __name__ == "__main__":

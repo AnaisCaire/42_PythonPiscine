@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    ft_analytics_dashboard.py                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
+#    By: acaire-d <acaire-d@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/24 10:38:21 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/24 14:04:06 by anaiscaire       ###   ########.fr        #
+#    Updated: 2026/01/23 12:08:44 by acaire-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ def dashboard():
     print("Conversion rate:", rate)
 
     session_metrics()
-    
+
     print("=== Advanced Insights ===")
     cluster = ["normal", "hardcore", "competitive"]
     cluster_dic = {

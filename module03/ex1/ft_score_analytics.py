@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_score_analytics.py                              :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/21 14:14:14 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/22 18:13:51 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 import sys
 
@@ -17,10 +6,14 @@ def ft_score_analytics():
     """
     The Score Cruncher Module
     """
-    print("=== Player Scores Analytics ===")
+    print("=== Player Score Analytics ===")
 
     if (len(sys.argv) == 1):
-        print("No scores provided.")
+        print(
+            "No scores provided."
+            " Usage: python3 ft_score_analytics.py"
+              "<score1> <score2> ..."
+            )
         return
 
     lst = sys.argv[1:]
@@ -34,18 +27,17 @@ def ft_score_analytics():
             continue
 
     if not processed_scores:
-        print("No scores provided. Usage: python3 ft_score_analytics.py"
-              "<score1> <score2> ...")
+        print("No valid numerical scores were given.")
         return
 
     print(f"Scores processed: {processed_scores}")
-    print(f"Total players: {len(sys.argv)-1}")
+    print(f"Total players: {len(processed_scores)}")
 
     total_score = sum(processed_scores)
     print(f"Total score: {total_score}")
 
-    avrg_score = total_score / (len(sys.argv)-1)
-    print(f"Average score: {avrg_score}")
+    avrg_score = total_score / (len(processed_scores))
+    print(f"Average score: {avrg_score:.1f}")
 
     high_score = max(processed_scores)
     print(f"High score: {high_score}")
