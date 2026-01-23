@@ -6,6 +6,7 @@ def water_plants(plant_list):
             if p is None:
                 raise ValueError("Cannot water None - invalid plant!")
             print(f"Watering {p}")
+        print("Watering completed successfully!")
     except ValueError as e:
         print(f"Error: {e}")
     finally:

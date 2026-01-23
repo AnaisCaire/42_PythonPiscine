@@ -16,7 +16,7 @@ class PlantError(GardenError):
 
 class WaterError(GardenError):
     """For problems with watering (inherits from GardenError)."""
-    def __init__(self, message="A watering-related error occurred"):
+    def __init__(self, message="watering-related error"):
         super().__init__(message)
     pass
 
@@ -130,7 +130,8 @@ def tester():
         raise WaterError("Not enought water in the tank")
     except GardenError as e:
         print(f"Caught GardenError: {e}")
-    print("System recovered and continuing...")
+    finally:
+        print("System recovered and continuing...")
 
     print("\nGarden management system test complete!")
 

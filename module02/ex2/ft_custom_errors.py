@@ -13,7 +13,7 @@ class PlantError(GardenError):
     """
     For problems with plants (inherits from GardenError).
     """
-    def __init__(self, message="Plant error"):
+    def __init__(self, message="A Plant error occured"):
         super().__init__(message)
     pass
 

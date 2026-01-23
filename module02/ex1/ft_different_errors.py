@@ -1,7 +1,7 @@
 
 def garden_operations(error_type: str):
     """
-    Performs specific actions that trigger common Python errors.
+    Performs specific actions that triggers common Python errors.
     """
     if error_type == "value":
         int("abc")
@@ -18,6 +18,7 @@ def test_error_types():
     """
     Tests and handles various garden operation errors.
     """
+    print("=== Garden Error Types Demo ===")
     print("\nTesting ValueError...")
     try:
         garden_operations("value")
@@ -52,5 +53,4 @@ def test_error_types():
 
 
 if __name__ == "__main__":
-    print("=== Garden Error Types Demo ===")
     test_error_types()
