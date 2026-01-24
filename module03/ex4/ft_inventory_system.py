@@ -106,7 +106,7 @@ def DictionarySystem():
 
     rare_lst = []
     for item, details in alice_inv.items():
-        if details["rarity"] == "rare":
+        if details["rarity"] == "rare" and item not in rare_lst:
             rare_lst += [item]
     for item, details in bob_inv.items():
         if details["rarity"] == "rare" and item not in rare_lst:

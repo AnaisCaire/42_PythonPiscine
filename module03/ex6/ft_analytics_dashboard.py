@@ -1,19 +1,4 @@
 
-def session_metrics():
-    print("\n=== Engagement Metrics ===")
-    daily_active_users = [1250, 1340, 1180, 1420, 1380]
-    sessions = [15, 45, 120, 10, 30, 180, 25, 5, 40, 35]
-    session_max = max(sessions)
-    session_average = sum(sessions)/len(sessions)
-    print("Daily active users:", daily_active_users)
-    print(f"Session lenght: avg {session_average} min, max {session_max} min")
-    total_players = 100
-    returning_players = 78
-
-    retention_rate = (returning_players / total_players) * 100
-    print(f"Retention rate: {retention_rate:.1f}%")
-
-
 def dashboard():
     """
     Combining all data quests
@@ -41,48 +26,78 @@ def dashboard():
          "status": "normal", "cluster": "competitive"}
     ]
 
-    print("=== Player Performance Report ===")
-    top_perf = [p["name"] for p in data if p['score'] > 2000]
-    print(f"Top performers: {top_perf}")
-    high_score = {p["name"]: p['score'] for p in data if p['score'] > 2000}
-    print("High scorers (2000+):", high_score)
-    active_reg = {p['region'] for p in data}
-    print("Active regions:", active_reg)
-
-    print("\n=== Revenue Analytics ===")
-    region = ["north", "east", "central"]
-    revenue_reg = {
-        reg: sum([p['score'] for p in data if p['region'] == reg])
-        for reg in region
+    achievements = {
+        "alice": {'level_10', 'treasure_hunter', 'speed_demon', 'boss_slayer'},
+        "bob": {'first_kill', 'level_10', 'boss_slayer', 'collector'},
+        "charlie": {'level_10', 'treasure_hunter', 'perfectionist'},
+        "diana": {'speed_demon', 'perfectionist', 'level_10', 'first_kill'},
+        "eve": {'first_kill', 'level_10'},
+        "frank": {'first_kill', 'treasure_hunter'},
+        "grace": {'boss_slayer', 'perfectionist', 'speed_demon', 'level_10'},
+        "hank": {'first_kill', 'speed_demon'},
+        "ivy": {'boss_slayer', 'speed_demon', 'level_10'},
+        "jack": {'first_kill'}
     }
-    print("Revenue by region:", revenue_reg)
-    prem_players = [p['status'] for p in data if p['status'] == "premium"]
+
+    print("=== Game Analytics Dashboard ===")
+    print("\n=== List Comprehensions ===")
+
+    top_perf = [p["name"] for p in data if p['score'] > 2000]
+    print(f"Top performers: {top_perf}")  # list
+
+    prem_players = [p['name'] for p in data if p['status'] == "premium"]
     print("Premium Players:", prem_players)
     player = len(data)
     prem_len = len(prem_players)
     rate = (prem_len / player) * 100
     print("Conversion rate:", rate)
 
-    session_metrics()
+    at_risk = [p['score'] for p in data if p['score'] < 500]
+    num_at_risk = len(at_risk)
+    print("Players at risk:", num_at_risk)
 
-    print("=== Advanced Insights ===")
-    cluster = ["normal", "hardcore", "competitive"]
+    print("\n=== Sets Comprehensoions ===")
+
+    active_reg = {p['region'] for p in data}
+    print("Active regions:", active_reg)
+
+    cluster = {p['cluster'] for p in data}
+    print("Total clusters:", len(cluster))
+
+    unique_players = {p['name'] for p in data}
+    print("Unique players:", unique_players)
+
+    print("\n=== dict comprehensions ===")
+
+    high_score = {p["name"]: p['score'] for p in data if p['score'] > 2000}
+    print("High scorers (2000+):", high_score)
+    revenue_reg = {
+        reg: sum([p['score'] for p in data if p['region'] == reg])
+        for reg in active_reg
+    }
+    print("Revenue by region:", revenue_reg)
+
     cluster_dic = {
         clus: len([p for p in data if p["cluster"] == clus])
         for clus in cluster
     }
     print("Player clusters:", cluster_dic)
-    at_risk = [p['score'] for p in data if p['score'] < 500]
-    num_at_risk = len(at_risk)
-    print("Churn prediction:", num_at_risk)
 
+    print("\n=== Advanced Insights ===")
+    # double loop
     recommendations = [
         (p1["name"], p2["name"])
         for p1 in data
         for p2 in data
-        if p1["region"] == p2["region"] and p1["name"] != p2["name"]
+        if p1["region"] == p2["region"] and p1["name"] < p2["name"]
     ]
     print(f"Recommendation engine: {len(recommendations)} matches generated")
+
+    unique_ach = {
+        badge for ach_set in achievements.values()
+        for badge in ach_set
+                  }
+    print("Unique acheivements: ", unique_ach)
 
 
 if __name__ == "__main__":
