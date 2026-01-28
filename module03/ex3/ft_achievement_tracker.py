@@ -1,6 +1,6 @@
 
 
-def AchievementHunter():
+def achievement_hunter():
     """
     Tool to handle unique collections of acheivements
     """
@@ -39,4 +39,4 @@ def AchievementHunter():
 
 
 if __name__ == "__main__":
-    AchievementHunter()
+    achievement_hunter()

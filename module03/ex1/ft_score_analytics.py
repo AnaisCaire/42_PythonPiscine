@@ -12,7 +12,7 @@ def ft_score_analytics():
         print(
             "No scores provided."
             " Usage: python3 ft_score_analytics.py"
-              "<score1> <score2> ..."
+            "<score1> <score2> ..."
             )
         return
 

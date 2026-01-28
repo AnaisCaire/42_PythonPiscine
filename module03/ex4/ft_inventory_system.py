@@ -13,7 +13,7 @@ def get_inventory_stats(inventory):
     return total_val, total_items
 
 
-def DictionarySystem():
+def dictionary_system():
     """
     Iventory Master so organize storage
     """
@@ -124,4 +124,4 @@ def DictionarySystem():
 
 
 if __name__ == "__main__":
-    DictionarySystem()
+    dictionary_system()
