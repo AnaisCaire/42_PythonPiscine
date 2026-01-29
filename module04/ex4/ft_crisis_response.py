@@ -1,4 +1,5 @@
 
+
 def crisis_response(file_name):
     """
     How to handle crisis
@@ -9,7 +10,7 @@ def crisis_response(file_name):
             for line in data:
                 print(f"SUCCESS: Archive recovered - {line}")
             print("STATUS: Normal operations resumed")
-    
+
     except FileNotFoundError:
         print("RESPONSE: Archive not found in storage matrix")
         print("STATUS: Crisis handled, system stable")
@@ -18,18 +19,20 @@ def crisis_response(file_name):
         print("STATUS: Crisis handled, security maintained")
     except Exception as e:
         print(f"RESPONSE: Unexpected system anomaly: {e}")
-     
+
+
 def main():
     """
     Use to test function
     """
     print("=== CYBER ARCHIVES - CRISIS RESPONSE SYSTEM ===\n")
 
-    files = ["lost_archive.txt", "classified_vault.txt", "standard_archive.txt"]
+    files = [
+        "lost_archive.txt", "classified_vault.txt", "standard_archive.txt"]
     for file in files:
         crisis_response(file)
     print("\nAll crisis scenarios handled successfully. Archives secure.")
-    
+
 
 if __name__ == "__main__":
     main()
