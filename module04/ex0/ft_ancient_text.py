@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_ancient_text.py                                 :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/26 12:08:47 by anaiscaire        #+#    #+#              #
-#    Updated: 2025/12/26 12:32:06 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 def data_recovery():
     """
@@ -16,17 +5,17 @@ def data_recovery():
     """
     print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===")
     try:
-        print("\nAccessing Storage Vault: ancient_fragment.txt")
+        print("\nAccessing Storage Vault: ancient\_fragment.txt")
 
         data = open("ancient_fragment.txt", "r")
-        print("Connection established!")
+        print("Connection established...")
 
         print("\nRECOVERY DATA:")
         print(data.read())
 
-        print("\nData recovery completed :)")
+        print("\nData recovery completed")
         print("Disconnecting storage unit...")
-        data.close()
+        data.close() # not necessary
     except FileNotFoundError:
         print("Error: Storage vault not found. Run data generator first.")
 
