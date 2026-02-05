@@ -1,6 +1,6 @@
 
 from abc import ABC
-from typing import Any, Dict, Protocol
+from typing import Any, Dict, Protocol, Union
 
 
 class ProcessingStage(Protocol):
@@ -55,15 +55,18 @@ class InputStage():
     """Find exactly where the data is (with "payload") to use in the
     future stages"""
 
-    def process(self, data: Any) -> Dict:
-        payload = data["payload"] if isinstance(data, dict) else data
-        print(f"Input: {payload}")
-        return data
+    def process(self, data: Any) -> Union[str, Any]:
+        try:
+            payload = data["payload"] if isinstance(data, dict) else data
+            print(f"Input: {payload}")
+            return data
+        except KeyError:
+            raise KeyError("Missing 'payload' in input dic")
 
 
 class TransformStage():
     """Where the data will be transformed"""
-    def process(self, data: Any) -> Dict:
+    def process(self, data: Any) -> Union[str, Any]:
         if isinstance(data, dict) and "sensor" in data.get("payload", {}):
             print("Transform: Enriched with metadata and validation")
         elif isinstance(data, str) and "temp" in data:
@@ -77,7 +80,7 @@ class TransformStage():
 
 class OutputStage():
     """Final formatting of the processed info"""
-    def process(self, data: Any) -> str:
+    def process(self, data: Any) -> Union[str, Any]:
         payload = data.get("payload", {}) if isinstance(data, dict) else data
         if isinstance(payload, dict) and payload.get("sensor") == "temp":
             val = payload.get("value")
@@ -91,10 +94,9 @@ class OutputStage():
 
 
 class JSONAdapter(ProcessingPipeline):
-    def process(self, raw_data: Dict) -> Any:
+    def process(self, data: Dict) -> Any:
         print("Processing JSON data through pipeline...")
-        formatted_data = {"pipeline_id": self.pipeline_id, "payload": raw_data}
-        # so it can iterate through self.stages
+        formatted_data = {"pipeline_id": self.pipeline_id, "payload": data}
         return super().process(formatted_data)
 
 
