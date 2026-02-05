@@ -99,15 +99,15 @@ class JSONAdapter(ProcessingPipeline):
 
 
 class CSVAdapter(ProcessingPipeline):
-    def process(self, raw_data: str) -> str:
+    def process(self, data: str) -> str:
         print("Processing CSV data through same pipeline...")
-        return super().process(raw_data)
+        return super().process(data)
 
 
 class StreamAdapter(ProcessingPipeline):
-    def process(self, raw_data: str) -> str:
+    def process(self, data: str) -> str:
         print("Processing Stream data through same pipeline...")
-        return super().process(raw_data)
+        return super().process(data)
 
 
 class NexusManager:
@@ -115,9 +115,23 @@ class NexusManager:
         print("\nInitializing Nexus Manager...")
         print("Pipeline capacity: 1000 streams/second\n")
         self.pipelines: dict[int, ProcessingPipeline] = {}
+        self.pipeline_num = 0
 
-    def process(self, data: str):
+    def add_pipeline(self, pipeline: ProcessingPipeline) -> None:
+        self.pipelines_num += 1
+        self.pipelines[self.pipeline_num] = pipeline
 
+    def process(self, data: Any) -> Any:
+        """
+        UML Method: + process_data()
+        Orchestrates data through every registered pipeline.
+        The output of one becomes the input of the next (Chaining).
+        """
+        result = data
+        for pipeline_num, pipeline in self.pipelines.items():
+            print(f"Processing {pipeline_num}")
+            result = pipeline.process(result)
+        return result
 
 
 if __name__ == "__main__":
@@ -126,7 +140,7 @@ if __name__ == "__main__":
     # 1. Initialize the Master Orchestrator
     manager = NexusManager()
 
-    # 2. Configure the Base Pipeline
+    # 2. Configure the Base Pipeline = subtype polymorphism
     print("Creating Data Processing Pipeline...")
     pipeline_a = ProcessingPipeline("PIPES_ALPHA")
     pipeline_a.add_stage(InputStage())
@@ -134,24 +148,24 @@ if __name__ == "__main__":
     pipeline_a.add_stage(OutputStage())
 
     # Register in the manager collection
-    manager.process(pipeline_a)
+    test = manager.process(pipeline_a)
     print()
 
     # polymorphic handling of JSON, CSV, and Streams
     print("=== Multi-Format Data Processing ===\n")
 
-    json_adapter = JSONAdapter(pipeline_id=1)
+    json_adapter = JSONAdapter(pipeline_id=str(1))
     json_data = json_adapter.process(
         {"sensor": "temp", "value": 23.5, "unit": "C"})
     pipeline_a.process(json_data)
     print()
 
-    csv_adapter = CSVAdapter(pipeline_id=1)
+    csv_adapter = CSVAdapter(pipeline_id=str(1))
     csv_data = csv_adapter.process("user, action, timestamp")
     pipeline_a.process(csv_data)
     print()
 
-    stream_adapter = StreamAdapter(pipeline_id=1)
+    stream_adapter = StreamAdapter(pipeline_id=str(1))
     stream_data = stream_adapter.process("Real-time sensor stream")
     pipeline_a.process(stream_data)
     print()

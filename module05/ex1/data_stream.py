@@ -5,16 +5,17 @@ from typing import Any, Union, List, Dict
 
 class DataStream(ABC):
     """Standard protocol for all streams"""
-    def __init__(self, stream_id: str, stream_type: str):
+    def __init__(self, stream_id: str, stream_type: str) -> None:
         self.stream_id = stream_id
         self.stream_type = stream_type
 
     @abstractmethod
-    def process_batch(self, batch: list[Any], verbose: bool = True) -> str:
+    def process_batch(self, batch: list[Any]) -> str:
         """Process batch of data and gives summary"""
         pass
 
-    def filter_data(self, data_batch: List[Any], criteria=None) -> List[Any]:
+    def filter_data(
+            self, data_batch: List[Any], criteria: Any = None) -> List[Any]:
         """ filter data based on criteria """
         filter_list = []
 
@@ -37,7 +38,7 @@ class DataStream(ABC):
 
 
 class SensorStream(DataStream):
-    def __init__(self, stream_id: str):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id, stream_type="Enviromental Data")
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
@@ -65,7 +66,7 @@ class SensorStream(DataStream):
 
 
 class TransactionStream(DataStream):
-    def __init__(self, stream_id: str):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id, stream_type="Financial Stream")
 
     def process_batch(self, batch: list[Any]) -> str:
@@ -86,7 +87,7 @@ class TransactionStream(DataStream):
 
 
 class EventStream(DataStream):
-    def __init__(self, stream_id: str):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id, stream_type="System Events")
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
