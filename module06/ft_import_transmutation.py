@@ -1,19 +1,10 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_import_transmutation.py                         :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/01/15 15:29:10 by anaiscaire        #+#    #+#              #
-#    Updated: 2026/01/15 18:13:42 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 # Method 1: Full module import
+# = better to see origin, +clarity
 import alchemy.elements
 
 # Method 2: Specific function import
+# = use when dont need too much functions because the origin is less obvious
 from alchemy.elements import create_water
 
 # Method 3: Aliased import
