@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    nexus_pipeline.py                                  :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: anaiscaire <anaiscaire@student.42.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/01/09 13:17:18 by anaiscaire        #+#    #+#              #
-#    Updated: 2026/01/12 10:57:30 by anaiscaire       ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 from abc import ABC, abstractmethod
 from typing import Any, List, Dict
