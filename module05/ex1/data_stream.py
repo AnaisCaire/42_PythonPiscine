@@ -57,7 +57,9 @@ class SensorStream(DataStream):
                 total_temp += value
                 count += 1
         avg = total_temp / count if count > 0 else 0.0
-        return f"Sensor analysis: {len(batch)} readings processed, avg temp: {avg:.1f}°C"
+        return (
+            f"Sensor analysis: {len(batch)} "
+            f"readings processed, avg temp: {avg:.1f}°C")
 
 
 class TransactionStream(DataStream):
@@ -77,7 +79,8 @@ class TransactionStream(DataStream):
                     gain += int(items.split(":")[1])
 
         net_flow = gain - loss
-        return f"Transaction analysis: {len(batch)} operations, net flow: {net_flow:+d} units"
+        return (f"Transaction analysis: {len(batch)} "
+                f"operations, net flow: {net_flow:+d} units")
 
 
 class EventStream(DataStream):
@@ -116,16 +119,12 @@ class StreamProcessor:
             }
 
         for stream in self.streams:
-            # Get keyword for THIS stream
             keywords = criteria_map.get(stream.stream_type, [])
 
-            # Use a list comprehension to gather all data that matches ANY keyword
             stream_specific_data = []
             for key in keywords:
-                # We use the existing filter_data method for each keyword
-                stream_specific_data.extend(stream.filter_data(batch, criteria=key))
-
-            # Now we call the polymorphic method
+                stream_specific_data.extend(
+                    stream.filter_data(batch, criteria=key))
             result = stream.process_batch(stream_specific_data)
             print(f"- {result}")
 

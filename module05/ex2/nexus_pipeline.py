@@ -1,6 +1,6 @@
 
-from abc import ABC, abstractmethod
-from typing import Any, List, Dict, Protocol
+from abc import ABC
+from typing import Any, Dict, Protocol
 
 
 class ProcessingStage(Protocol):
@@ -10,8 +10,10 @@ class ProcessingStage(Protocol):
 
 
 class ProcessingPipeline(ABC):
-    """it job is to move data from one specialized worker to
-    the next in a specific order."""
+    """
+    it job is to move data from one specialized worker to
+    the next in a specific order.
+    """
     def __init__(self, pipeline_id: str):
         self.pipeline_id = pipeline_id
         self.stages: list[ProcessingStage] = []
@@ -28,7 +30,6 @@ class ProcessingPipeline(ABC):
         print(
             f"Stage {len(self.stages)}: {labels.get(stage.__class__.__name__)}"
             )
-        # class is to point to the class of the object and name to get its name in a str
 
     def process(self, data: Any) -> Any:
         """This is the subtype polymorphism == runs through all stages"""
@@ -134,23 +135,20 @@ if __name__ == "__main__":
     manager.process(pipeline_a)
     print()
 
-    # 3. Multi-Format Data Processing Demo
-    # Demonstrating polymorphic handling of JSON, CSV, and Streams
+    # polymorphic handling of JSON, CSV, and Streams
     print("=== Multi-Format Data Processing ===\n")
 
-    # JSON Processing
     json_adapter = JSONAdapter(pipeline_id=1)
-    json_data = json_adapter.process({"sensor": "temp", "value": 23.5, "unit": "C"})
+    json_data = json_adapter.process(
+        {"sensor": "temp", "value": 23.5, "unit": "C"})
     pipeline_a.process(json_data)
     print()
 
-    # CSV Processing
     csv_adapter = CSVAdapter(pipeline_id=1)
     csv_data = csv_adapter.process("user, action, timestamp")
     pipeline_a.process(csv_data)
     print()
 
-    # Stream Processing
     stream_adapter = StreamAdapter(pipeline_id=1)
     stream_data = stream_adapter.process("Real-time sensor stream")
     pipeline_a.process(stream_data)
@@ -166,6 +164,7 @@ if __name__ == "__main__":
     print("\n=== Error Recovery Test ===")
     print("Simulating pipeline failure...")
 
-    pipeline_a.handle_recovery(Exception("Invalid data format"), "Raw Data Sample")
+    pipeline_a.handle_recovery(Exception(
+        "Invalid data format"), "Raw Data Sample")
 
     print("\nNexus Integration complete. All systems operational.")

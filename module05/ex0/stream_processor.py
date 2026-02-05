@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 
-class DataProcessor(ABC):  # this is what must exist
+class DataProcessor(ABC):
     """
     The base of all Nexus processors, Parent class
     """
