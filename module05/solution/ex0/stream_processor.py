@@ -29,24 +29,27 @@ class NumericProcessor(DataProcessor):
 
     def validate(self, data: Any) -> bool:
         """Makes sure its a list of ints/floats"""
-        if not isinstance(data, list) or len(data) == 0:
-            print("Error: Validation failed for numeric data.")
-            return False
+        if isinstance(data, (int, float)):
+            print("Validation: Numeric data verified")
+            return True
 
-        for items in data:
-            if not isinstance(items, (int, float)):
-                return False
-        print("Validation: Numeric data verified")
-        return True
+        if isinstance(data, list):
+            if all(isinstance(item, (int, float)) for item in data):
+                print("Validation: Numeric data verified")
+                return True
+
+        print("Error: Validation failed for numeric data.")
+        return False
 
     def process(self, data: list) -> str:
         """ extract the count, sum and average of the values"""
-        sum = 0
-        for num in data:
-            sum += num
-        count = len(data)
-        average = sum / count
-        return f"{count}, {sum}, {average}"
+        values = data if isinstance(data, list) else [data]
+        total = 0
+        for num in values:
+            total += num
+        count = len(values)
+        average = total / count
+        return f"{count}, {total:.2f}, {average:.2f}"
 
     def format_output(self, result: str) -> str:
         """output formating for the numbers"""
@@ -121,7 +124,7 @@ if __name__ == "__main__":
     def tester():
         """tester for the 3 subclasses"""
         test_data = [
-            [1.6, 2.8, 3, 0.5],
+            [1, 54, 88, 12, 4.4, 2.3],
             "Hello Nexus World",
             "ERROR: Connection timeout"]
         processors = [NumericProcessor(), TextProcessor(), LogProcessor()]
@@ -145,7 +148,7 @@ if __name__ == "__main__":
         print("Processing multiple data types through same interface...")
 
         processors = [NumericProcessor(), TextProcessor(), LogProcessor()]
-        mix_data = ["42 Neo-Tokyo", [1, 2, 3], "INFO: System ready"]
+        mix_data = [[1, 2, 3], "42 Neo-Tokyo", "INFO: System ready"]
 
         for i in range(len(processors)):
             proc = processors[i]

@@ -4,7 +4,9 @@ from typing import Any, Dict, Protocol
 
 
 class ProcessingStage(Protocol):
-    """Standard protocol for all processing stages"""
+    """Standard protocol for all processing stages
+    Protocols dont need inheritance, they are a composition
+    its a pipeline"""
     def process(self, data: Any) -> Any:
         pass
 
@@ -109,13 +111,13 @@ class StreamAdapter(ProcessingPipeline):
 
 
 class NexusManager:
-    def __init__(self):
+    def __init__(self) -> None:
         print("\nInitializing Nexus Manager...")
         print("Pipeline capacity: 1000 streams/second\n")
         self.pipelines: dict[int, ProcessingPipeline] = {}
 
-    def process(self, pipeline: ProcessingPipeline):
-        self.pipelines[len(self.pipelines) + 1] = pipeline
+    def process(self, data: str):
+
 
 
 if __name__ == "__main__":

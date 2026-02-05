@@ -55,6 +55,8 @@ class SensorStream(DataStream):
             if isinstance(item, str) and item.startswith("temp"):
                 value = float(item.split(":")[1])
                 total_temp += value
+                if value > 30 or value < 0:
+                    return f"temp:{value} is invalid to calculate average"
                 count += 1
         avg = total_temp / count if count > 0 else 0.0
         return (
