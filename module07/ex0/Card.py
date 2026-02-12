@@ -14,7 +14,7 @@ class Card(ABC):
         """Give the play results"""
         pass
 
-    def get_card_info(self):
+    def get_card_info(self) -> dict:
         return ({
             "name": self.name,
             "cost": self.cost,
