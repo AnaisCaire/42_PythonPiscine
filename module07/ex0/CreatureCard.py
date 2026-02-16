@@ -1,6 +1,7 @@
 
 from ex0.Card import Card
 
+
 class CreatureCard(Card):
     """Gives play and attack based on the Parent class Card"""
     def __init__(self, name: str, cost: int, rarity: str,
@@ -15,7 +16,7 @@ class CreatureCard(Card):
 
     def play(self, game_state: dict) -> dict:
         """prints the play results"""
-        game_state ={
+        game_state = {
                 "card_played": self.name,
                 "mana_used": self.cost,
                 "effect": "Creature suummond to battlefield"

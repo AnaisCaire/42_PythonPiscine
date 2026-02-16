@@ -11,7 +11,7 @@ class EliteCard(Card, Combatable, Magical):
         super().__init__(name, cost, rarity)
         self.damage_done = damage_done
         self.health = health
-    
+
     def play(self, game_state: dict) -> dict:
         """from the card class abstract method"""
         game_state = super().play(game_state)
@@ -26,14 +26,14 @@ class EliteCard(Card, Combatable, Magical):
         else:
             combat_type = "Magic sword"
         return {"attacker": self.name,
-             "target": target,
-             "damage": self.damage_done,
-             "combat_type": combat_type}
-    
+                "target": target,
+                "damage": self.damage_done,
+                "combat_type": combat_type}
+
     def defend(self, incoming_damage: int) -> dict:
-        """ 
+        """
         Who is the defender, how much damage has he taken
-        how much damage did he block and is he still alive? 
+        how much damage did he block and is he still alive?
         """
         self.health -= incoming_damage
         if self.health >= 0:
@@ -45,7 +45,7 @@ class EliteCard(Card, Combatable, Magical):
                 "damage_blocked": self.damage_done - 2,
                 "still_alive": alive
                 }
-    
+
     # magical methods:
     def cast_spell(self, spell_name: str, targets: list) -> dict:
         """What spell was cast by who ? to who?"""
@@ -55,7 +55,7 @@ class EliteCard(Card, Combatable, Magical):
             "targets": targets,
             "mana_used": self.cost - 6
         }
-    
+
     def channel_mana(self, amount: int) -> dict:
         """
         How much of mana was channeled and how
@@ -65,7 +65,7 @@ class EliteCard(Card, Combatable, Magical):
         return {
             "channeled": amount,
             "total_mana": total_mana}
-    
+
     # Implement stats methods
     def get_combat_stats(self) -> dict:
         """Return combat stats."""
@@ -74,4 +74,3 @@ class EliteCard(Card, Combatable, Magical):
     def get_magic_stats(self) -> dict:
         """Return magic stats based on cost."""
         return {"mana_power": self.cost * 2}
-

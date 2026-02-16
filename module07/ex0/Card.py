@@ -13,7 +13,7 @@ class Card(ABC):
     def play(self, game_state: dict) -> dict:
         """
         Base implementation for playing a card.
-        Subclasses should call super().play(game_state) to include 
+        Subclasses should call super().play(game_state) to include
         this basic information.
         """
         # we do not overwite the class each time

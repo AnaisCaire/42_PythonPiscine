@@ -13,7 +13,6 @@ class SpellCard(Card):
         game_state.update({"effect_type": self.effect_type})
         return game_state
 
-
     def resolve_effect(self, targets: list) -> dict:
         """ the impact of the spell played"""
         return {

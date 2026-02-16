@@ -53,7 +53,6 @@ class TournamentCard(Card, Combatable, Rankable):
         """Update losses count."""
         self._losses += losses
 
-
     def get_rank_info(self) -> dict:
         """Return ranking info as a dict."""
         return {"rating": self._rating,

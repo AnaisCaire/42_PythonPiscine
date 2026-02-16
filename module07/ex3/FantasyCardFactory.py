@@ -3,6 +3,7 @@ from ex0.CreatureCard import CreatureCard
 from ex1.SpellCard import SpellCard
 from ex1.ArtifactCard import ArtifactCard
 
+
 class FantasyCardFactory(CardFactory):
     """Concrete factory for creating Fantasy-themed cards."""
 
