@@ -11,8 +11,19 @@ class Card(ABC):
 
     @abstractmethod
     def play(self, game_state: dict) -> dict:
-        """Give the play results"""
-        pass
+        """
+        Base implementation for playing a card.
+        Subclasses should call super().play(game_state) to include 
+        this basic information.
+        """
+        # we do not overwite the class each time
+        # but we update it to be like a historic
+        game_state.update({
+            "card_played": self.name,
+            "mana_used": self.cost,
+            "rarity": self.rarity
+        })
+        return game_state
 
     def get_card_info(self) -> dict:
         return ({

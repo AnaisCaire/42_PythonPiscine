@@ -12,10 +12,12 @@ class ArtifactCard(Card):
         self.effect = effect
 
     def play(self, game_state: dict) -> dict:
-        """Process the playing of the artifact."""
-        game_state = {"card_played": self.name,
-                    "mana_used": self.cost,
-                   "effect": f"Permanent: {self.effect}"}
+        """Process the playing of the artifact card 
+            by extending the base logic."""
+        super().play(game_state)
+        game_state.update({
+            "effect": f"Permanent: {self.effect}"
+        })
         return game_state
 
     def activate_ability(self) -> dict:

@@ -9,10 +9,8 @@ class SpellCard(Card):
 
     def play(self, game_state: dict) -> dict:
         """ The play of a spell card """
-        game_state = {
-            "card_played": self.name,
-            "mana_used": self.cost,
-            "effect_type": self.effect_type}
+        game_state = super().play(game_state)
+        game_state.update({"effect_type": self.effect_type})
         return game_state
 
 

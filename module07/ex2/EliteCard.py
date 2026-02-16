@@ -14,7 +14,8 @@ class EliteCard(Card, Combatable, Magical):
     
     def play(self, game_state: dict) -> dict:
         """from the card class abstract method"""
-        game_state = {"state": "Elite card entered the field"}
+        game_state = super().play(game_state)
+        game_state.update({"state": "Elite card entered the field"})
         return game_state
 
     # combatable methods:
