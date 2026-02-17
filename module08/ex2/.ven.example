@@ -1,5 +1,0 @@
-MATRIX_MODE=development
-DATABASE_URL=postgres://operator:neo_1999@zion-mainframe:5432/matrix_logs
-API_KEY=sh-3829-alpha-redpill-99
-LOG_LEVEL=DEBUG
-ZION_ENDPOINT=https://api.zion.resistance/v1/uplink

@@ -1,5 +1,17 @@
 import os
-import sys
+
+REQUIRED_KEYS = [
+    "MATRIX_MODE",
+    "DATABASE_URL",
+    "API_KEY",
+    "LOG_LEVEL",
+    "ZION_ENDPOINT",
+]
+
+DEFAULTS = {
+    "MATRIX_MODE": "development",
+    "LOG_LEVEL": "DEBUG",
+}
 
 
 def loader():
@@ -9,7 +21,7 @@ def loader():
     """
     ven_dict = {}  # so we return an empty dic if function fails
     try:
-        with open('.ven.example', 'r') as f:
+        with open('.env', 'r') as f:
             for line in f:
                 line = line.strip()
                 # Skip empty lines or comments
@@ -22,51 +34,87 @@ def loader():
         print("there is no .ven file found")
         return ven_dict
 
-
-def security_check(ven_dic):
+def security_check(config, ven_dic):
     """add a layer of security and control erros"""
-    if not ven_dic:
-        print("Error, the loader didnt work")
-        return False
-    print("[OK] .env file properly configured")
+    print("Environment security check:")
+    if ven_dic:
+        print("[OK] .env file properly configured")
+    else:
+        print("[WARN] .env file not found or empty")
 
-    # 2. Check for placeholders in sensitive keys
-    placeholders = ["your_api_key_here", "Connection string for data storage"]
-    if ven_dic.get("API_KEY") in placeholders:
+    placeholders = {
+        "your_api_key_here",
+        "changeme",
+        "postgres://user:pass@host:5432/dbname",
+    }
+    if config.get("API_KEY") in placeholders or config.get("DATABASE_URL") in placeholders:
         print("[ERROR] Hardcoded placeholders detected in secrets")
         return False
+
     print("[OK] No hardcoded secrets detected")
 
-    # 3. Check for valid mode
-    if ven_dic.get("MATRIX_MODE") in ["development", "production"]:
+    if config.get("MATRIX_MODE") in ("development", "production"):
         print("[OK] Production overrides available")
         return True
+
+    print("[WARN] MATRIX_MODE invalid")
     return False
+
 
 def oracle():
     """Uses os to add the .env requirements to the system and displays status"""
+    print("Accessing the Mainframe")
     print("ORACLE STATUS: Reading the Matrix...")
-    # Load our dictionary from the .env file
-    ven_dic = loader()
-    print("\nConfiguration loaded:")
-    for key, value in ven_dic.items():
-        # Inject into the system environment
-        os.environ[key] = value
 
-        if key == "MATRIX_MODE" and value is not None:
-            print(f"Mode: {value}")
-        elif key == "DATABASE_URL" and value is not None:
+    ven_dic = loader()
+
+    config = {}
+    for key in REQUIRED_KEYS:
+        value = os.getenv(key)
+        if not value:
+            value = ven_dic.get(key)
+        if not value and key in DEFAULTS:
+            value = DEFAULTS[key]
+            print(f"[WARN] {key} missing, defaulting to {value}")
+        config[key] = value
+
+    mode = config.get("MATRIX_MODE")
+    if mode not in ("development", "production"):
+        print("Error: MATRIX_MODE must be development or production")
+        mode = "development"
+
+    print("\nConfiguration loaded:")
+    print(f"Mode: {mode}")
+
+    if config.get("DATABASE_URL"):
+        if mode == "production":
+            print("Database: Connected to production cluster")
+        else:
             print("Database: Connected to local instance")
-        elif key == "API_KEY" and value is not None:
-            print("API Access: Authenticated")
-        elif key == "LOG_LEVEL" and value is not None:
-            print(f"Log Level: {value}")
-        elif key == "ZION_ENDPOINT" and value is not None:
+    else:
+        print("Database: Missing configuration")
+
+    if config.get("API_KEY"):
+        print("API Access: Authenticated")
+    else:
+        print("API Access: Missing credentials")
+
+    if config.get("LOG_LEVEL"):
+        print(f"Log Level: {config['LOG_LEVEL']}")
+    else:
+        print("Log Level: Missing configuration")
+
+    if config.get("ZION_ENDPOINT"):
+        if mode == "production":
             print("Zion Network: Online")
         else:
-            print(f"do not recognize this key: {key}")
+            print("Zion Network: Sandbox")
+    else:
+        print("Zion Network: Offline (missing endpoint)")
+
     print()
-    security_check(ven_dic)
+    security_check(config, ven_dic)
+    print("The Oracle sees all configurations.")
 
 
 if __name__ == "__main__":
