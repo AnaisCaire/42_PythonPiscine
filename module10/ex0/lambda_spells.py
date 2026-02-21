@@ -9,12 +9,14 @@ def artifact_sorter(artifacts: list[dict]) -> list[dict]:
     artifact_sort = sorted(artifacts, key=lambda x: x["power"], reverse=True)
     return artifact_sort
 
+
 def power_filter(mages: list[dict], min_power: int) -> list[dict]:
     """
     Use filter() with a lambda to find mages with power >= min_power
     """
     power_filt = list(filter(lambda x: x["power"] >= min_power, mages))
     return power_filt
+
 
 def spell_transformer(spells: list[str]) -> list[str]:
     """
@@ -23,6 +25,7 @@ def spell_transformer(spells: list[str]) -> list[str]:
     """
     new_spell = list(map(lambda x: "* " + x + " *", spells))
     return new_spell
+
 
 def mage_stats(mages: list[dict]) -> dict:
     """
@@ -33,11 +36,11 @@ def mage_stats(mages: list[dict]) -> dict:
     • Return dict: {’max_power’: int, ’min_power’: int, ’avg_power’: float}
     """
     max_power = max(mages, key=lambda x: x['power'])['power']
-    min_power = min(mages, key= lambda x: x['power'])['power']
+    min_power = min(mages, key=lambda x: x['power'])['power']
     avg_power = round(sum(map(lambda x: x['power'], mages)) / len(mages), 2)
     stats = {"max_power": max_power, "min_power": min_power, "avg_power": avg_power}
     return stats
-    
+
 
 if __name__ == "__main__":
     print("=== The Lambda Sanctum ===\n")
