@@ -39,10 +39,10 @@ def conditional_caster(condition: callable, spell: callable) -> callable:
     """
     def condition_spell(*args, **kwargs):
         condition_bool = condition(*args, **kwargs)
-        if condition_bool is True:
+        if condition_bool:
             spell_res = spell(*args, **kwargs)
             return spell_res
-        elif condition_bool is False:
+        else:
             return "Spell fizzled"
 
     return condition_spell
@@ -66,6 +66,7 @@ if __name__ == "__main__":
 
     print(" === First-class citizenship === ")
     # Simple spells for testing
+
     def fire(target):
         return f"Fireball hits {target}"
 
