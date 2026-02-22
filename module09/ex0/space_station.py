@@ -13,7 +13,7 @@ class SpaceStation(BaseModel):
     oxygen_level: float = Field(..., ge=0.0, le=100.0)
     last_maintenance: datetime
     is_operational: bool = Field(default=True)
-    notes: str = Field(..., max_length=200)
+    notes: str | None = Field(default=None, max_length=200)
 
 
 def main():
@@ -26,8 +26,7 @@ def main():
         "crew_size": 6,
         "power_level": 85.5,
         "oxygen_level": 92.3,
-        "last_maintenance": "2026-02-18T14:30:00Z",
-        "notes": "this is the test "
+        "last_maintenance": datetime.now()
     }
     try:
         valid = SpaceStation(**valid_data)
@@ -36,6 +35,8 @@ def main():
         print(f"Crew: {valid.crew_size}")
         print(f"Power: {valid.power_level}%")
         print(f"Oxygen: {valid.oxygen_level}%")
+        # print("Last maintenance",
+        #      valid.last_maintenance.strftime("%Y-%m-%d %H:%M"))
         if valid.is_operational is True:
             print("Status: Operational")
         else:
@@ -59,7 +60,7 @@ def main():
         invalid_data = SpaceStation(**invalid_data)
     except ValidationError as e:
         for error_message in e.errors():
-            print(error_message["msg"])
+            print(error_message['msg'])
 
 
 if __name__ == "__main__":
