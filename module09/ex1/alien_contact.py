@@ -29,25 +29,78 @@ class AlienContact(BaseModel):
         if self.contact_id.startswith("AC"):
             return self
         else:
-            raise ValueError("[Error] contact id dosent start with AC")
+            raise ValueError("contact id dosent start with AC")
+
+    @model_validator(mode='after')
+    def contact_vaLidator(self):
+        """Physical needs to be verified also"""
+        if self.contact_type != ContactType.PHYSICAL:
+            return self
+        elif self.contact_type == ContactType.PHYSICAL and self.is_verified is True:
+            return self
+        else:
+            raise ValueError("contact was not verified")
+
+    @model_validator(mode='after')
+    def telephathic_val(self):
+        if self.contact_type != ContactType.TELEPATHIC:
+            return self
+        elif self.contact_type == ContactType.TELEPATHIC and self.witness_count >= 3:
+            return self
+        else:
+            raise ValueError("Telepathic contact requires at least 3 witnesses")
+        
+    @model_validator(mode='after')
+    def signal_validator(self):
+        """strong signal needs message"""
+        if self.signal_strength > 7:
+            if self.message_received is None or self.message_received == "":
+                raise ValueError("Strong signals (> 7.0) should include received messages")
+        return self
 
 
 def main():
     """Testing the system"""
+    print("Alien Contact Log Validation")
+    print("========================================\n")
     try:
-        test = AlienContact(contact_id="AC008707",
-                            timestamp=datetime.now(),
-                            location="planet earth",
-                            contact_type="visual",
-                            signal_strength=6.22,
-                            duration_minutes=66,
-                            witness_count=32,
-                            message_received="this is the message",
-                            is_verified=True
-                            )
-        # test1 = AlienContact(contact_id="008707", contact_type=ContactType.RADIO)
-        print(test)
-        # print(test1)
+        print("Valid contact report:")
+        valid = AlienContact(
+            contact_id="AC08707",
+            timestamp=datetime.now(),
+            location="planet earth",
+            contact_type="physical",
+            signal_strength=7.22,
+            duration_minutes=66,
+            witness_count=2,
+            message_received="this is the message",
+            is_verified=True)
+
+        print("ID:", valid.contact_id)
+        print("Type:", valid.contact_type)
+        print("Location:", valid.location)
+        print(f"Signal: {valid.signal_strength}/10")
+        print(f"Duration: {valid.duration_minutes} minutes")
+        print("Witnesses:", valid.witness_count)
+        print("Message:", valid.message_received)
+    except ValidationError as e:
+        for err in e.errors():
+            print(err['msg'])
+
+    print("========================================\n")
+    try:
+        print("Expected validation error:")
+        invalid = AlienContact(
+            contact_id="AC08707",
+            timestamp=datetime.now(),
+            location="planet earth",
+            contact_type="telepathic",
+            signal_strength=7.22,
+            duration_minutes=66,
+            witness_count=2,
+            message_received="this is the message",
+            is_verified=True)
+        print(invalid)
     except ValidationError as e:
         for err in e.errors():
             print(err['msg'])

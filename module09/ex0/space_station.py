@@ -26,7 +26,12 @@ def main():
         "crew_size": 6,
         "power_level": 85.5,
         "oxygen_level": 92.3,
+<<<<<<< HEAD
         "last_maintenance": datetime.now()
+=======
+        "last_maintenance": datetime.now(),
+        "notes": "this is the test "
+>>>>>>> refs/remotes/origin/main
     }
     try:
         valid = SpaceStation(**valid_data)
@@ -53,7 +58,7 @@ def main():
         "crew_size": 25,
         "power_level": 85.5,
         "oxygen_level": 92.3,
-        "last_maintenance": "2026-02-18T14:30:00Z",
+        "last_maintenance": datetime.now(),
         "notes": "this is the test "
     }
     try:

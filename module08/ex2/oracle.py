@@ -34,6 +34,7 @@ def loader():
         print("there is no .ven file found")
         return ven_dict
 
+
 def security_check(config, ven_dic):
     """add a layer of security and control erros"""
     print("Environment security check:")
@@ -75,7 +76,7 @@ def oracle():
             value = ven_dic.get(key)
         if not value and key in DEFAULTS:
             value = DEFAULTS[key]
-            print(f"[WARN] {key} missing, defaulting to {value}")
+            print(f"[WARNIG] {key} missing, defaulting to {value}")
         config[key] = value
 
     mode = config.get("MATRIX_MODE")
