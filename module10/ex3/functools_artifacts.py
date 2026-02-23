@@ -1,4 +1,4 @@
-from functools import reduce, partial, lru_cache
+from functools import reduce, partial, lru_cache, singledispatch
 import operator
 # import time
 
@@ -59,7 +59,23 @@ def spell_dispatcher() -> callable:
     • Return the dispatcher function
     • Each type should have appropriate spell behavior
     """
-    pass
+    @singledispatch
+    def base_func(arg):
+        return "Spell dosen't exist"
+
+    @base_func.register(int)
+    def _(arg):
+        return f"{arg} damage done"
+
+    @base_func.register(str)
+    def _(arg):
+        return f"Enchantment: {arg} was casted"
+
+    @base_func.register(list)
+    def _(arg):
+        return "list:", len(arg)
+
+    return base_func
 
 
 if __name__ == "__main__":
@@ -85,7 +101,13 @@ if __name__ == "__main__":
     print("Fib(10):", memoized_fibonacci(10))
     print("Fib(15):", memoized_fibonacci(15))
 
-"""     begin = time.time()
+    """     begin = time.time()
     memoized_fibonacci(40)
     end = time.time()
     print("total time:", end - begin) """
+
+    print("\nTesting dispatch...")
+    my_spell = spell_dispatcher()
+    print(my_spell(["Fire", "Ice", "Lightning"]))
+    print(my_spell(42))
+    print(my_spell("macbook"))

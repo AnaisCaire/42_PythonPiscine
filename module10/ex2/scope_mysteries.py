@@ -46,7 +46,8 @@ def memory_vault() -> dict[str, callable]:
     """
     • Return a dict with ’store’ and ’recall’ functions
     • ’store’ function: takes (key, value) and stores the memory
-    • ’recall’ function: takes (key) and returns stored value or "Memory not found"
+    • ’recall’ function: takes (key) and returns stored value 
+        or "Memory not found"
     • Use closure to maintain private memory storage   
     """
     dictionary = {}
@@ -66,8 +67,8 @@ def memory_vault() -> dict[str, callable]:
 if __name__ == "__main__":
     print(" === Memory Depths === \n")
     print("Mage counter visualisation....")
-    counting = mage_counter()
-    for i in range(4):
+    counting = mage_counter()  # Creates a bubble to run inner func
+    for i in range(4):  # look for count outside not in your pocket (nonlocal)
         i = counting()
         print(f"function was called: {i} times")
 
@@ -93,6 +94,7 @@ if __name__ == "__main__":
 
     print("Memory vault...")
     testing = memory_vault()
+    # here we dont replace, we add so, no need for nonlocal
     testing['store']("spell", "A fire ball spell")
     # testing['store']("spell_2", "An ice clowd")
     print("Its a function:", testing["store"])
