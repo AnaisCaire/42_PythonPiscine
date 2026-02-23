@@ -47,8 +47,20 @@ def memory_vault() -> dict[str, callable]:
     • Return a dict with ’store’ and ’recall’ functions
     • ’store’ function: takes (key, value) and stores the memory
     • ’recall’ function: takes (key) and returns stored value or "Memory not found"
-    • Use closure to maintain private memory storage    
+    • Use closure to maintain private memory storage   
     """
+    dictionary = {}
+
+    def store(key: str, value: str):
+        dictionary[key] = value
+        return "stored value and key"
+
+    def recall(key):
+        if key in dictionary:
+            return dictionary[key]
+        return "Memory not found"
+
+    return {"store": store, "recall": recall}
 
 
 if __name__ == "__main__":
@@ -79,4 +91,10 @@ if __name__ == "__main__":
     to_enchant = enchantment('Fireball')
     print(to_enchant)
 
-    print("Memory vault")
+    print("Memory vault...")
+    testing = memory_vault()
+    testing['store']("spell", "A fire ball spell")
+    # testing['store']("spell_2", "An ice clowd")
+    print("Its a function:", testing["store"])
+    print(testing['recall']("spell"))
+    print(testing["recall"]("spell_2"))
