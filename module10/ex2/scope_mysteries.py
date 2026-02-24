@@ -32,7 +32,8 @@ def spell_accumulator(initial_power: int) -> callable:
 def enchantment_factory(enchantment_type: str) -> callable:
     """
     • Return a function that applies the specified enchantment
-    • The returned function takes an item name and returns enchanted description
+    • The returned function takes an item name and returns
+        enchanted description
     • Format: "enchantment_type item_name" (e.g., "Flaming Sword")
     • Each factory creates functions with different enchantment types
     """
@@ -46,9 +47,9 @@ def memory_vault() -> dict[str, callable]:
     """
     • Return a dict with ’store’ and ’recall’ functions
     • ’store’ function: takes (key, value) and stores the memory
-    • ’recall’ function: takes (key) and returns stored value 
+    • ’recall’ function: takes (key) and returns stored value
         or "Memory not found"
-    • Use closure to maintain private memory storage   
+    • Use closure to maintain private memory storage
     """
     dictionary = {}
 

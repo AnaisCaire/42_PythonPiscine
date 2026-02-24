@@ -32,9 +32,9 @@ def partial_enchanter(base_enchantment: callable) -> dict[str, callable]:
     • Each should be a partial with power=50 and the respective element
     """
     enchant_dict = {
-        "fire_enchant": partial(base_enchant, 50, "fire"),
-        "ice_enchant": partial(base_enchant, 50, "ice"),
-        "lightning_enchant": partial(base_enchant, 50, "lightning")
+        "fire_enchant": partial(base_enchantment, 50, "fire"),
+        "ice_enchant": partial(base_enchantment, 50, "ice"),
+        "lightning_enchant": partial(base_enchantment, 50, "lightning")
     }
     return enchant_dict
 
@@ -55,13 +55,14 @@ def memoized_fibonacci(n: int) -> int:
 def spell_dispatcher() -> callable:
     """
     • Use functools.singledispatch to create a spell system
-    • Handle different types: int (damage spell), str (enchantment), list (multi-cast)
+    • Handle different types: int (damage spell), str (enchantment),
+        list (multi-cast)
     • Return the dispatcher function
     • Each type should have appropriate spell behavior
     """
     @singledispatch
     def base_func(arg):
-        return "Spell dosen't exist"
+        return f"type ({arg}) dosen't exist in Spells"
 
     @base_func.register(int)
     def _(arg):
@@ -90,10 +91,10 @@ if __name__ == "__main__":
 
     print("\nTesting partial enchanter technique...")
 
-    def base_enchant(power, element, target):
+    def base_enchantment_fact(power, element, target):
         return f"{element} with: {power} of power attacked {target}"
 
-    enchant_dict = partial_enchanter(base_enchant)
+    enchant_dict = partial_enchanter(base_enchantment=base_enchantment_fact)
     for key, value in enchant_dict.items():
         print(f"{key} ->", value("Gobling"))
 
@@ -111,3 +112,4 @@ if __name__ == "__main__":
     print(my_spell(["Fire", "Ice", "Lightning"]))
     print(my_spell(42))
     print(my_spell("macbook"))
+    print(my_spell(23.8))

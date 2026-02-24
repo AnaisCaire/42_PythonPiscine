@@ -8,8 +8,7 @@ def spell_combiner(spell1: callable, spell2: callable) -> callable:
     """
     def combined_spell(*args, **kwargs):
         """ we use *args to make sure if a spell requires more arguments,
-        that they are passed down.
-        keyword args are the named arguments"""
+        that they are passed down."""
         return1 = spell1(*args, **kwargs)
         return2 = spell2(*args, **kwargs)
         result = (return1, return2)
@@ -20,7 +19,8 @@ def spell_combiner(spell1: callable, spell2: callable) -> callable:
 
 def power_amplifier(base_spell: callable, multiplier: int) -> callable:
     """
-    • Return a new function that multiplies the base spell’s result by multiplier
+    • Return a new function that multiplies the base spell’s
+        result by multiplier
     • Assume base spell returns a number (damage, healing, etc.)
     • Example: mega_fireball = power_amplifier(fireball, 3)
     """

@@ -38,15 +38,26 @@ def mage_stats(mages: list[dict]) -> dict:
     max_power = max(mages, key=lambda x: x['power'])['power']
     min_power = min(mages, key=lambda x: x['power'])['power']
     avg_power = round(sum(map(lambda x: x['power'], mages)) / len(mages), 2)
-    stats = {"max_power": max_power, "min_power": min_power, "avg_power": avg_power}
+    stats = {"max_power": max_power,
+             "min_power": min_power,
+             "avg_power": avg_power}
     return stats
 
 
 if __name__ == "__main__":
     print("=== The Lambda Sanctum ===\n")
     # Lambda Sanctum Test Data
-    artifacts = [{'name': 'Fire Staff', 'power': 107, 'type': 'focus'}, {'name': 'Light Prism', 'power': 93, 'type': 'accessory'}, {'name': 'Earth Shield', 'power': 75, 'type': 'accessory'}, {'name': 'Fire Staff', 'power': 87, 'type': 'focus'}]
-    mages = [{'name': 'Nova', 'power': 81, 'element': 'earth'}, {'name': 'Jordan', 'power': 69, 'element': 'water'}, {'name': 'Kai', 'power': 50, 'element': 'lightning'}, {'name': 'Riley', 'power': 89, 'element': 'water'}, {'name': 'Sage', 'power': 67, 'element': 'ice'}]
+    artifacts = [
+        {'name': 'Fire Staff', 'power': 107, 'type': 'focus'},
+        {'name': 'Light Prism', 'power': 93, 'type': 'accessory'},
+        {'name': 'Earth Shield', 'power': 75, 'type': 'accessory'},
+        {'name': 'Fire Staff', 'power': 87, 'type': 'focus'}]
+    mages = [
+        {'name': 'Nova', 'power': 81, 'element': 'earth'},
+        {'name': 'Jordan', 'power': 69, 'element': 'water'},
+        {'name': 'Kai', 'power': 50, 'element': 'lightning'},
+        {'name': 'Riley', 'power': 89, 'element': 'water'},
+        {'name': 'Sage', 'power': 67, 'element': 'ice'}]
     spells = ['freeze', 'blizzard', 'darkness', 'lightning']
     sorted_artifacts = artifact_sorter(artifacts)
     for i, artifact in enumerate(sorted_artifacts, start=1):
@@ -55,7 +66,8 @@ if __name__ == "__main__":
     min_power = 69
     mages_power_filter = power_filter(mages, min_power)
     print("Testing power filtering function...")
-    print(f"Theses mages have more than the minimum power recommended: {min_power}")
+    print("Theses mages have more than the minimum"
+          f" power recommended: {min_power}")
     for mage in mages_power_filter:
         print(f"{mage['name']} -> ({mage['power']})")
     print()
