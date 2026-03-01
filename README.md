@@ -1,5 +1,10 @@
 # 42_PythonPiscine
 los 11 modulos de python
+## Warning:
+No subí las últimas correcciones de mis módulos después de las evaluaciones o de haber leído por última vez el subject.
+Es posible que muchos de los ejercicios tengan errores.
+
+
 
 ## Module 01:
 
